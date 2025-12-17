@@ -90,9 +90,17 @@ exports.updateReplyByID = async (req, res) => {
     const { id } = req.params;
     const { content } = req.body;
 
-    const reply = await Reply.findById(id);
+    const reply = await Reply.findById(id).populate('user');
     if (!reply) {
       return res.status(404).json({ message: 'No reply found' });
+    }
+
+    // Check if user is admin or the creator of the reply
+    const isAdmin = req.user.username === 'admin';
+    const isCreator = reply.user._id.toString() === req.user.userId;
+
+    if (!isAdmin && !isCreator) {
+      return res.status(403).json({ message: 'You are not authorized to update this reply' });
     }
 
     if (content) reply.content = content;
@@ -110,9 +118,17 @@ exports.deleteReplyById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const reply = await Reply.findById(id);
+    const reply = await Reply.findById(id).populate('user');
     if (!reply) {
       return res.status(404).json({ message: 'No reply found' });
+    }
+
+    // Check if user is admin or the creator of the reply
+    const isAdmin = req.user.username === 'admin';
+    const isCreator = reply.user._id.toString() === req.user.userId;
+
+    if (!isAdmin && !isCreator) {
+      return res.status(403).json({ message: 'You are not authorized to delete this reply' });
     }
 
     await Reply.findByIdAndDelete(id);

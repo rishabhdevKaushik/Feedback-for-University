@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { getAllReplies, replyUser } from '../features/social/socialSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ReplyReplyMap from './ReplyReplyMap';
+import EditReply from './EditReply';
 
 function ReplyMap({ replies }) {
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyContent, setReplyContent] = useState('');
+  const [editingReply, setEditingReply] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,6 +32,16 @@ function ReplyMap({ replies }) {
       setReplyContent('');
     } else {
       setReplyingTo(replyId);
+      setEditingReply(null); // Close edit mode when replying
+    }
+  };
+
+  const handleToggleEdit = reply => {
+    if (editingReply === reply._id) {
+      setEditingReply(null);
+    } else {
+      setEditingReply(reply._id);
+      setReplyingTo(null); // Close reply mode when editing
     }
   };
 
@@ -78,21 +90,40 @@ function ReplyMap({ replies }) {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => handleToggleReply(reply._id)}
-                className='px13 font-semibold text-strong-blue hover:underline'
-              >
-                {replyingTo === reply._id ? 'Cancel' : 'Reply'}
-              </button>
+              <div className='flex gap-2'>
+                {(user.username === username || username === 'admin') && (
+                  <button
+                    onClick={() => handleToggleEdit(reply)}
+                    className='px13 font-semibold text-orange-500 hover:underline'
+                  >
+                    {editingReply === reply._id ? 'Cancel Edit' : 'Edit'}
+                  </button>
+                )}
+                <button
+                  onClick={() => handleToggleReply(reply._id)}
+                  className='px13 font-semibold text-strong-blue hover:underline'
+                >
+                  {replyingTo === reply._id ? 'Cancel' : 'Reply'}
+                </button>
+              </div>
             </div>
-            <div className='mt-2'>
-              <p className='px13 leading-[auto] text-grey md:ml-14'>
-                <span className='px13 font-bold leading-[auto] text-purple'>
-                  @{reply.replyTo.user}
-                </span>{' '}
-                {reply.content}
-              </p>
-            </div>
+            {editingReply === reply._id ? (
+              <div className='mt-2'>
+                <EditReply 
+                  reply={reply} 
+                  onCancel={() => setEditingReply(null)} 
+                />
+              </div>
+            ) : (
+              <div className='mt-2'>
+                <p className='px13 leading-[auto] text-grey md:ml-14'>
+                  <span className='px13 font-bold leading-[auto] text-purple'>
+                    @{reply.replyTo.user}
+                  </span>{' '}
+                  {reply.content}
+                </p>
+              </div>
+            )}
             {replyingTo === reply._id && (
               <div className='mt-2'>
                 <textarea

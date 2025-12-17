@@ -6,6 +6,7 @@ import {
   replyUser,
 } from '../features/social/socialSlice';
 import ReplyMap from './ReplyMap';
+import EditComment from './EditComment';
 
 function CommentMap({ id }) {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function CommentMap({ id }) {
 
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyContent, setReplyContent] = useState('');
+  const [editingComment, setEditingComment] = useState(null);
 
   const handleToggleReply = commentId => {
     if (replyingTo === commentId) {
@@ -29,6 +31,16 @@ function CommentMap({ id }) {
       setReplyContent('');
     } else {
       setReplyingTo(commentId);
+      setEditingComment(null); // Close edit mode when replying
+    }
+  };
+
+  const handleToggleEdit = comment => {
+    if (editingComment === comment._id) {
+      setEditingComment(null);
+    } else {
+      setEditingComment(comment._id);
+      setReplyingTo(null); // Close reply mode when editing
     }
   };
 
@@ -81,18 +93,37 @@ function CommentMap({ id }) {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => handleToggleReply(comment._id)}
-                className='px13 font-semibold text-strong-blue hover:underline'
-              >
-                {replyingTo === comment._id ? 'Cancel' : 'Reply'}
-              </button>
+              <div className='flex gap-2'>
+                {(user.username === username || username === 'admin') && (
+                  <button
+                    onClick={() => handleToggleEdit(comment)}
+                    className='px13 font-semibold text-orange-500 hover:underline'
+                  >
+                    {editingComment === comment._id ? 'Cancel Edit' : 'Edit'}
+                  </button>
+                )}
+                <button
+                  onClick={() => handleToggleReply(comment._id)}
+                  className='px13 font-semibold text-strong-blue hover:underline'
+                >
+                  {replyingTo === comment._id ? 'Cancel' : 'Reply'}
+                </button>
+              </div>
             </div>
-            <div className='pt-4'>
-              <p className='px13 leading-[auto] text-grey md:ml-14'>
-                {comment.content}
-              </p>
-            </div>
+            {editingComment === comment._id ? (
+              <div className='pt-4'>
+                <EditComment 
+                  comment={comment} 
+                  onCancel={() => setEditingComment(null)} 
+                />
+              </div>
+            ) : (
+              <div className='pt-4'>
+                <p className='px13 leading-[auto] text-grey md:ml-14'>
+                  {comment.content}
+                </p>
+              </div>
+            )}
             {replyingTo === comment._id && (
               <div className='mt-2'>
                 <textarea

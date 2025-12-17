@@ -83,9 +83,17 @@ exports.updateComment = async (req, res) => {
     const { id } = req.params;
     const { content } = req.body;
 
-    const comment = await Comment.findById(id);
+    const comment = await Comment.findById(id).populate('user');
     if (!comment) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    // Check if user is admin or the creator of the comment
+    const isAdmin = req.user.username === 'admin';
+    const isCreator = comment.user._id.toString() === req.user.userId;
+
+    if (!isAdmin && !isCreator) {
+      return res.status(403).json({ message: 'You are not authorized to update this comment' });
     }
 
     if (content) comment.content = content;
@@ -103,10 +111,20 @@ exports.deleteComment = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const comment = await Comment.findByIdAndDelete(id);
+    const comment = await Comment.findById(id).populate('user');
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
     }
+
+    // Check if user is admin or the creator of the comment
+    const isAdmin = req.user.username === 'admin';
+    const isCreator = comment.user._id.toString() === req.user.userId;
+
+    if (!isAdmin && !isCreator) {
+      return res.status(403).json({ message: 'You are not authorized to delete this comment' });
+    }
+
+    await Comment.findByIdAndDelete(id);
 
     await User.updateOne(
       { _id: comment.user },

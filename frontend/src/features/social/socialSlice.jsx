@@ -210,6 +210,64 @@ export const addPost = createAsyncThunk(
     }
 );
 
+export const updateReply = createAsyncThunk(
+    "reply/update",
+    async ({ id, content }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.put(
+                `/reply/update/${id}`,
+                { content }
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
+export const deleteReply = createAsyncThunk(
+    "reply/delete",
+    async ({ id }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.delete(
+                `/reply/delete/${id}`
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
+export const updateComment = createAsyncThunk(
+    "comment/update",
+    async ({ id, content }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.put(
+                `/comment/update/${id}`,
+                { content }
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
+export const deleteComment = createAsyncThunk(
+    "comment/delete",
+    async ({ id }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.delete(
+                `/comment/delete/${id}`
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
 const socialSlice = createSlice({
     name: "social",
     initialState: {
