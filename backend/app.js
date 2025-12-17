@@ -4,6 +4,7 @@ require('dotenv').config();
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path'); 
 const userRoutes = require('./routes/user');
 const categoryRoutes = require('./routes/category');
 const postRoutes = require('./routes/post');
@@ -32,6 +33,15 @@ app.use('/category', categoryRoutes);
 app.use('/post', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/reply', replyRoutes);
+
+// ---- serve Vite build (after API routes) ----
+const frontendPath = path.join(__dirname, '../frontend/dist');
+app.use(express.static(frontendPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+// ---------------------------------------------
 
 app.use((error, req, res, next) => {
   console.error(error.stack);
