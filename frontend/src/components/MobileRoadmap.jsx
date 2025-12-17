@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import whitearrow from '../assets/whitearrow.png';
 import LinkButton from './LinkButton';
 import DisplayRoadmapMobile from './DisplayRoadmapMobile';
 
 function MobileRoadmap() {
   const [selectedRoadmap, setSelectedRoadmap] = useState('in-progress');
+  const navigate = useNavigate();
 
   return (
     <main>
       <nav className='flex h-[6.25rem] items-center justify-between bg-blue px-6 py-6 text-white xs:px-3 s:px-6'>
         <div>
-          <Link
-            className='mb-1 flex items-center gap-2'
-            // TODO: It sould go wherever this is supposed to go
-            to='/home'
+          <button
+            className='mb-1 flex items-center gap-2 bg-transparent border-none cursor-pointer'
+            onClick={() => navigate(-1)}
           >
             <img src={whitearrow} alt='back btn' />
             <p className='px13 font-bold'>Go Back</p>
-          </Link>
+          </button>
           <h1 className='text-lg font-bold tracking-[-0.25px]'>Roadmap</h1>
         </div>
         <Link

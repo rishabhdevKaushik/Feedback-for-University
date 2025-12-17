@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import arrowleft from '../assets/arrowleft.png';
 import editicon from '../assets/editicon.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,6 @@ const EditFeedback = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const post = useSelector(state => state.social.selectedPost);
-  const categories = useSelector(state => state.social.categories);
 
   useEffect(() => {
     dispatch(getPostById({ id }));
@@ -90,16 +89,15 @@ const EditFeedback = () => {
           src={editicon}
           alt='editicon'
         />
-        <Link
-        // TODO: Change this so it only goes back once 
-          to='/home'
-          className='mb-[2.125rem] flex items-center gap-2'
+        <button
+          onClick={() => navigate(-1)}
+          className='mb-[2.125rem] flex items-center gap-2 bg-transparent border-none cursor-pointer'
         >
           <img className='h-2 w-1' src={arrowleft} alt='arrowback' />
           <p className='px13 font-bold text-gray-600 hover:text-black md:text-sm'>
             Go Back
           </p>
-        </Link>
+        </button>
         <div className='flex flex-col rounded-xl bg-white p-6 pt-12 md:px-12 md:pb-10 md:pt-14'>
           <h1 className='mb-6 text-lg font-bold tracking-[-0.25px] text-blue md:text-2xl md:tracking-[-0.33px]'>
             Editing 
@@ -167,13 +165,13 @@ const EditFeedback = () => {
               >
                 Save Changes
               </button>
-              <Link
-              // TODO: Change this so it only goes back once
-                to='/home'
+              <button
+                type='button'
+                onClick={() => navigate(-1)}
                 className='px13 mb-4 flex h-10 min-h-[2.75rem] w-full items-center justify-center rounded-xl bg-blue text-center text-sm font-bold text-white hover:bg-hover-grey md:mb-0 md:min-w-[5.813rem] md:max-w-[5.813rem] md:text-sm'
               >
                 Cancel
-              </Link>
+              </button>
             </div>
             <button
               type='button'
