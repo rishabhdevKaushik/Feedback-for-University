@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getAllUsers } from '../features/social/socialSlice';
+import { getAllUsers, deleteUser } from '../features/social/socialSlice';
 import { isUserAdmin } from '../utils/adminUtils';
 
 function AdminManageUsers() {
@@ -9,6 +9,17 @@ function AdminManageUsers() {
   const navigate = useNavigate();
   const users = useSelector(state => state.social.users);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const handleDeleteUser = async (userId, username) => {
+    if (window.confirm(`Are you sure you want to delete user "${username}"? This action cannot be undone.`)) {
+      try {
+        await dispatch(deleteUser({ id: userId })).unwrap();
+        alert('User deleted successfully');
+      } catch (error) {
+        alert('Failed to delete user: ' + (error.message || 'Unknown error'));
+      }
+    }
+  };
 
   useEffect(() => {
     const adminStatus = isUserAdmin();
@@ -72,18 +83,18 @@ function AdminManageUsers() {
                     </td>
                     <td className='p-3'>
                       <div className='flex gap-2'>
-                        <button
+                        {/* <button
                           className='px-3 py-1 bg-strong-blue text-white text-sm rounded hover:bg-hover-blue'
                           disabled
                         >
                           View Profile
-                        </button>
+                        </button> */}
                         {user.username !== 'admin' && (
                           <button
                             className='px-3 py-1 bg-red text-white text-sm rounded hover:bg-red-600'
-                            disabled
+                            onClick={() => handleDeleteUser(user._id, user.username)}
                           >
-                            Suspend
+                            Delete
                           </button>
                         )}
                       </div>

@@ -164,6 +164,18 @@ export const getAllUsers = createAsyncThunk(
     }
 );
 
+export const deleteUser = createAsyncThunk(
+    "user/delete",
+    async ({ id }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.delete(`/users/delete/${id}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
 export const replyUser = createAsyncThunk(
     "reply/addReply",
     async ({ id, content, user, replyType }, { rejectWithValue }) => {
@@ -354,6 +366,8 @@ const socialSlice = createSlice({
                         state.replies = action.payload.replies;
                     } else if (action.type === getAllUsers.fulfilled.type) {
                         state.users = action.payload.users;
+                    } else if (action.type === deleteUser.fulfilled.type) {
+                        state.users = state.users.filter(user => user._id !== action.payload.user._id);
                     }
                     state.error = null;
                 }

@@ -83,7 +83,7 @@ function SelectedFeedback() {
           {isAdmin && (
             <button
               onClick={handleDelete}
-              className='px13 flex h-10 w-[7.438rem] items-center justify-center rounded-xl bg-red-500 font-bold text-white hover:bg-red-600 md:h-[2.75rem] md:w-[8.875rem] md:text-sm'
+              className='px13 flex h-10 w-[7.438rem] items-center justify-center rounded-xl bg-red font-bold text-white hover:bg-red-600 md:h-[2.75rem] md:w-[8.875rem] md:text-sm'
             >
               Delete Post
             </button>

@@ -16,7 +16,7 @@ function Nav({ toggleMenu, setToggleMenu }) {
 
   return (
     <>
-      <nav className='absolute hidden gap-[0.625rem] md:relative md:mx-10 md:mb-10 md:flex md:h-[11.125rem] xl:mr-0 xl:flex xl:flex-col xl:gap-6 xl:pr-0 xl:pt-24'>
+      <nav className='absolute  gap-[0.625rem] md:relative md:mx-10 md:mb-10 md:flex md:h-[11.125rem] xl:mr-0 xl:flex xl:flex-col xl:gap-6 xl:pr-0 xl:pt-24'>
         <div className='h-[11.125rem] w-1/3 rounded-xl bg-gradient-to-tr from-gradient-blue via-gradient-purple to-gradient-red px-6 pt-24 lg:mr-0 lg:w-1/3 xl:w-full xl:min-w-64 xl:p-6 xl:pt-16'>
           <p className='text-xl font-bold tracking-[-0.25px] text-white'>
             Feedback and Suggestion Box
