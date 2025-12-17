@@ -69,11 +69,11 @@ function CommentMap({ id }) {
           >
             <div className='flex justify-between'>
               <div className='flex gap-4'>
-                <img
+                {/* <img
                   className='h-10 w-10 rounded-full'
                   src={getUserImagePath(user.img)}
                   alt={`${user.firstname} ${user.lastname}`}
-                />
+                /> */}
                 <div className=''>
                   <p className='px13 font-bold capitalize tracking-[-0.18px] text-blue'>{`${user.firstname} ${user.lastname}`}</p>
                   <p className='px13 font-normal capitalize text-grey'>
