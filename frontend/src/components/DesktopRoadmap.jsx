@@ -70,7 +70,7 @@ function DesktopRoadmap() {
             }
             )
           </h2>
-          <p className='mb-6 text-sm font-normal text-grey'>
+          <p className='mb-6 text-sm font-normal text-gray-600'>
             Ideas prioritized for research
           </p>
           {posts
@@ -82,12 +82,12 @@ function DesktopRoadmap() {
                 >
                   <div className='mb-[0.875rem] flex items-center gap-2'>
                     <img className='h-2 w-2' src={orange} alt='orange oval' />
-                    <p className='px13 text-grey'>Planned</p>
+                    <p className='px13 text-gray-600'>Planned</p>
                   </div>
                   <h2 className='px13 mb-2 cursor-pointer font-bold tracking-[-0.18px] text-blue hover:text-strong-blue'>
                     {feedback.title}
                   </h2>
-                  <p className='px13 mb-6 h-[2.375rem] overflow-hidden font-normal text-grey'>
+                  <p className='px13 mb-6 h-[2.375rem] overflow-hidden font-normal text-gray-700'>
                     {feedback.description}
                   </p>
                   <div className='mb-4 flex h-[1.875rem] w-[6.938rem] items-center justify-center rounded-xl bg-grey-white text-sm'>
@@ -143,7 +143,7 @@ function DesktopRoadmap() {
             }
             )
           </h2>
-          <p className='mb-6 text-sm font-normal text-grey'>
+          <p className='mb-6 text-sm font-normal text-gray-600'>
             Ideas being actively worked on
           </p>
           {posts
@@ -160,7 +160,7 @@ function DesktopRoadmap() {
                   <h2 className='px13 mb-2 cursor-pointer font-bold tracking-[-0.18px] text-blue hover:text-strong-blue'>
                     {feedback.title}
                   </h2>
-                  <p className='px13 mb-6 h-[2.375rem] overflow-hidden font-normal text-grey'>
+                  <p className='px13 mb-6 h-[2.375rem] overflow-hidden font-normal text-gray-700'>
                     {feedback.description}
                   </p>
                   <div className='mb-4 flex h-[1.875rem] w-[6.938rem] items-center justify-center rounded-xl bg-grey-white text-sm'>
@@ -215,7 +215,7 @@ function DesktopRoadmap() {
             }
             )
           </h2>
-          <p className='mb-6 text-sm font-normal text-grey'>
+          <p className='mb-6 text-sm font-normal text-gray-600'>
             Ideas currently implemented
           </p>
           {posts
@@ -232,7 +232,7 @@ function DesktopRoadmap() {
                   <h2 className='px13 mb-2 cursor-pointer font-bold tracking-[-0.18px] text-blue hover:text-strong-blue'>
                     {feedback.title}
                   </h2>
-                  <p className='px13 mb-6 h-[2.375rem] overflow-hidden font-normal text-grey'>
+                  <p className='px13 mb-6 h-[2.375rem] overflow-hidden font-normal text-gray-700'>
                     {feedback.description}
                   </p>
                   <div className='mb-4 flex h-[1.875rem] w-[6.938rem] items-center justify-center rounded-xl bg-grey-white text-sm'>

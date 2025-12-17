@@ -52,23 +52,23 @@ function Roadmap() {
         <div className='flex justify-between'>
           <div className='mb-2 flex items-center gap-2'>
             <img src={orange} alt='Orange Oval' />
-            <p className='text-base font-normal text-grey'>Planned</p>
+            <p className='text-base font-normal text-gray-600'>Planned</p>
           </div>
-          <p className='text-base font-bold text-grey'>{plannedCount}</p>
+          <p className='text-base font-bold text-gray-700'>{plannedCount}</p>
         </div>
         <div className='flex justify-between'>
           <div className='mb-2 flex items-center gap-2'>
             <img src={purple} alt='Purple Oval' />
-            <p className='text-base font-normal text-grey'>In-Progress</p>
+            <p className='text-base font-normal text-gray-600'>In-Progress</p>
           </div>
-          <p className='text-base font-bold text-grey'>{inProgressCount}</p>
+          <p className='text-base font-bold text-gray-700'>{inProgressCount}</p>
         </div>
         <div className='flex justify-between'>
           <div className='mb-2 flex items-center gap-2'>
             <img src={blue} alt='Blue Oval' />
-            <p className='text-base font-normal text-grey'>Live</p>
+            <p className='text-base font-normal text-gray-600'>Live</p>
           </div>
-          <p className='text-base font-bold text-grey'>{liveCount}</p>
+          <p className='text-base font-bold text-gray-700'>{liveCount}</p>
         </div>
       </div>
     </div>

@@ -1,11 +1,19 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import hamburger from '../assets/hamburger.svg';
 import MenuMobile from './MenuMobile';
 import x from '../assets/x.svg';
 import Filter from './Filter';
 import Roadmap from './Roadmap';
+import AdminDashboard from './AdminDashboard';
+import { isUserAdmin } from '../utils/adminUtils';
 
 function Nav({ toggleMenu, setToggleMenu }) {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(isUserAdmin());
+  }, []);
+
   return (
     <>
       <nav className='absolute hidden gap-[0.625rem] md:relative md:mx-10 md:mb-10 md:flex md:h-[11.125rem] xl:mr-0 xl:flex xl:flex-col xl:gap-6 xl:pr-0 xl:pt-24'>
@@ -19,6 +27,20 @@ function Nav({ toggleMenu, setToggleMenu }) {
         </div>
         <Filter />
         <Roadmap />
+        {isAdmin && <AdminDashboard />}
+        {/* {isAdmin && (
+          <div className='rounded-xl bg-white p-6 xs:mx-3 s:mx-6 md:m-0 md:w-1/3 md:p-6 lg:mx-2 lg:w-1/3 xl:m-0 xl:h-16 xl:w-full xl:min-w-64'>
+            <button
+              onClick={() => {
+                localStorage.clear();
+                window.location.href = '/';
+              }}
+              className='w-full rounded-lg bg-red-500 px-4 py-2 text-center text-white font-semibold hover:bg-red-600 transition-colors'
+            >
+              Logout (Admin)
+            </button>
+          </div>
+        )} */}
       </nav>
       <nav className='flex h-[4.5rem] items-center justify-between overflow-x-hidden bg-gradient-to-tr from-gradient-blue via-gradient-purple to-gradient-red xs:px-4 s:px-6 md:absolute md:hidden'>
         <div className='flex flex-col text-white'>
@@ -26,7 +48,7 @@ function Nav({ toggleMenu, setToggleMenu }) {
           <p className='px13 font-medium opacity-75'>for University</p>
         </div>
         <img
-          onClick={e => {
+          onClick={() => {
             setToggleMenu(!toggleMenu);
           }}
           className='h-4 w-4 cursor-pointer md:hidden'

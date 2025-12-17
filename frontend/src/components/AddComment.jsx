@@ -31,10 +31,10 @@ function AddComment({ postId }) {
           value={commentContent}
           onChange={handleInputChange}
           maxLength={maxCharacters}
-          className='md:px-15 mb-4 h-20 w-full rounded-[5px] bg-grey-white2 px-4 py-4 text-grey focus:outline-strong-blue md:py-4'
+          className='md:px-15 mb-4 h-20 w-full rounded-[5px] bg-grey-white2 px-4 py-4 text-gray-700 focus:outline-strong-blue md:py-4'
         ></textarea>
         <div className='flex items-center justify-between'>
-          <p className='px-13 md:px-15 font-normal text-grey xs:text-[0.625rem]'>
+          <p className='px-13 md:px-15 font-normal text-gray-600 xs:text-[0.625rem]'>
             {remainingCharacters} Characters left
           </p>
           <button

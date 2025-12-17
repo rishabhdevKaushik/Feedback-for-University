@@ -13,7 +13,7 @@ function NoFeedback() {
       <h1 className='mb-[0.875rem] text-lg font-bold tracking-[-0.25px] text-blue md:text-2xl md:tracking-[-0.33px]'>
         There is no feedback yet.
       </h1>
-      <p className='px13 mb-6 text-center font-normal leading-[auto] text-grey md:mx-32 md:mb-12 md:text-base xl:mx-40 xl:text-base'>
+      <p className='px13 mb-6 text-center font-normal leading-[auto] text-gray-600 md:mx-32 md:mb-12 md:text-base xl:mx-40 xl:text-base'>
         Got a suggestion? We love hearing
         about new ideas.
       </p>

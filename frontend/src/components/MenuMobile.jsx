@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Filter from '../components/Filter';
 import Roadmap from './Roadmap';
+import AdminDashboard from './AdminDashboard';
+import { isUserAdmin } from '../utils/adminUtils';
 
 function MenuMobile({ toggleMenu }) {
   const [isVisible, setIsVisible] = useState(toggleMenu);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(isUserAdmin());
+  }, []);
 
   useEffect(() => {
     setIsVisible(toggleMenu);
@@ -37,6 +44,20 @@ function MenuMobile({ toggleMenu }) {
         <>
           <Filter />
           <Roadmap />
+          {isAdmin && <AdminDashboard />}
+          {/* {isAdmin && (
+            <div className='mx-3 mt-4 rounded-xl bg-white p-4'>
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.href = '/';
+                }}
+                className='w-full rounded-lg bg-red-500 px-4 py-2 text-center text-white font-semibold hover:bg-red-600 transition-colors'
+              >
+                Logout (Admin)
+              </button>
+            </div>
+          )} */}
         </>
       )}
     </div>

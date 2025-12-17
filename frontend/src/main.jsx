@@ -11,6 +11,9 @@ import EditFeedback from './components/EditFeedback.jsx';
 import SelectedFeedback from './components/SelectedFeedback.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
+import AdminManagePosts from './components/AdminManagePosts.jsx';
+import AdminManageUsers from './components/AdminManageUsers.jsx';
+import AdminManageCategories from './components/AdminManageCategories.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,18 @@ const router = createBrowserRouter([
   {
     path: '/feedback/:id',
     element: <SelectedFeedback />,
+  },
+  {
+    path: '/admin/posts',
+    element: <AdminManagePosts />,
+  },
+  {
+    path: '/admin/users',
+    element: <AdminManageUsers />,
+  },
+  {
+    path: '/admin/categories',
+    element: <AdminManageCategories />,
   },
 ]);
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import arrowleft from '../assets/arrowleft.png';
 import comment from '../assets/comment.png';
@@ -10,8 +10,10 @@ import {
   getAllPosts,
   getAllCategories,
   upvoteToggle,
+  deletePost,
 } from '../features/social/socialSlice';
 import AddComment from './AddComment';
+import { isUserAdmin } from '../utils/adminUtils';
 
 function SelectedFeedback() {
   const { id } = useParams();
@@ -23,6 +25,7 @@ function SelectedFeedback() {
 
   const user = localStorage.getItem('user');
   const username = localStorage.getItem('username');
+  const isAdmin = isUserAdmin();
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -50,6 +53,14 @@ function SelectedFeedback() {
     return category ? category.name : 'Unknown';
   };
 
+  const handleDelete = () => {
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      dispatch(deletePost({ id: post._id })).then(() => {
+        navigate('/');
+      });
+    }
+  };
+
   return (
     <main className='min-w-screen absolute left-0 right-0 top-0 min-h-full bg-grey-white p-6 pb-24 xs:px-3 s:px-6 md:px-10 md:pb-32 md:pt-14 xl:px-80 xl:pb-32 xl:pt-20'>
       <div className='mb-6 flex justify-between'>
@@ -58,16 +69,26 @@ function SelectedFeedback() {
           className='flex items-center gap-4'
         >
           <img className='h-2 w-1' src={arrowleft} alt='arrowback' />
-          <p className='px13 font-bold text-grey hover:text-black md:text-sm'>
+          <p className='px13 font-bold text-gray-600 hover:text-black md:text-sm'>
             Go Back
           </p>
         </button>
-        <Link
-          to={'/editfeedback/' + id}
-          className='px13 flex h-10 w-[7.438rem] items-center justify-center rounded-xl bg-strong-blue font-bold text-white hover:bg-hover-blue md:h-[2.75rem] md:w-[8.875rem] md:text-sm'
-        >
-          Edit Feedback
-        </Link>
+        <div className='flex gap-3'>
+          <Link
+            to={'/editfeedback/' + id}
+            className='px13 flex h-10 w-[7.438rem] items-center justify-center rounded-xl bg-strong-blue font-bold text-white hover:bg-hover-blue md:h-[2.75rem] md:w-[8.875rem] md:text-sm'
+          >
+            Edit Feedback
+          </Link>
+          {isAdmin && (
+            <button
+              onClick={handleDelete}
+              className='px13 flex h-10 w-[7.438rem] items-center justify-center rounded-xl bg-red-500 font-bold text-white hover:bg-red-600 md:h-[2.75rem] md:w-[8.875rem] md:text-sm'
+            >
+              Delete Post
+            </button>
+          )}
+        </div>
       </div>
       <div className='mb-6 rounded-xl bg-white p-6 md:flex md:flex-row-reverse md:justify-between'>
         <button className='absolute hidden items-center gap-1 md:relative md:flex'>
@@ -81,7 +102,7 @@ function SelectedFeedback() {
             <h2 className='px13 mb-2 font-bold tracking-[-0.18px] text-blue md:text-lg'>
               {post ? post.title : null}
             </h2>
-            <p className='px13 mb-[0.625rem] font-normal text-grey md:text-base'>
+            <p className='px13 mb-[0.625rem] font-normal text-gray-700 md:text-base'>
               {post ? post.description : null}
             </p>
             <div className='mb-4 flex h-[1.875rem] w-[6.938rem] items-center justify-center rounded-xl bg-grey-white'>

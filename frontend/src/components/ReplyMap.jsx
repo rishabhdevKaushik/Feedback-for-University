@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { getAllReplies, replyUser } from '../features/social/socialSlice';
+import { useEffect, useState } from 'react';
+import { getAllReplies, replyUser, deleteReply } from '../features/social/socialSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ReplyReplyMap from './ReplyReplyMap';
 import EditReply from './EditReply';
+import { isUserAdmin } from '../utils/adminUtils';
 
 function ReplyMap({ replies }) {
   const [replyingTo, setReplyingTo] = useState(null);
@@ -17,6 +18,7 @@ function ReplyMap({ replies }) {
   const replyState = useSelector(state => state.social.replies);
   const users = useSelector(state => state.social.users);
   const username = localStorage.getItem('username');
+  const isAdmin = isUserAdmin();
 
   const findCommonValues = (replyState, replies) => {
     const set2 = new Set(replies);
@@ -67,6 +69,14 @@ function ReplyMap({ replies }) {
     }
   };
 
+  const handleDeleteReply = (replyId) => {
+    if (window.confirm('Are you sure you want to delete this reply?')) {
+      dispatch(deleteReply({ id: replyId })).then(() => {
+        dispatch(getAllReplies());
+      });
+    }
+  };
+
   return (
     <div className='ml-8'>
       {commonReplies.map(reply => {
@@ -85,18 +95,26 @@ function ReplyMap({ replies }) {
                 /> */}
                 <div className=''>
                   <p className='px13 font-bold capitalize tracking-[-0.18px] text-blue'>{`${user.firstname} ${user.lastname}`}</p>
-                  <p className='px13 font-normal capitalize text-grey'>
+                  <p className='px13 font-normal capitalize text-gray-600'>
                     @{user.username}
                   </p>
                 </div>
               </div>
               <div className='flex gap-2'>
-                {(user.username === username || username === 'admin') && (
+                {(user.username === username || isAdmin) && (
                   <button
                     onClick={() => handleToggleEdit(reply)}
                     className='px13 font-semibold text-orange-500 hover:underline'
                   >
                     {editingReply === reply._id ? 'Cancel Edit' : 'Edit'}
+                  </button>
+                )}
+                {isAdmin && (
+                  <button
+                    onClick={() => handleDeleteReply(reply._id)}
+                    className='px13 font-semibold text-red-500 hover:underline'
+                  >
+                    Delete
                   </button>
                 )}
                 <button
@@ -116,7 +134,7 @@ function ReplyMap({ replies }) {
               </div>
             ) : (
               <div className='mt-2'>
-                <p className='px13 leading-[auto] text-grey md:ml-14'>
+                <p className='px13 leading-[auto] text-gray-700 md:ml-14'>
                   <span className='px13 font-bold leading-[auto] text-purple'>
                     @{reply.replyTo.user}
                   </span>{' '}

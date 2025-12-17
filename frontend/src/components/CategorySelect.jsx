@@ -53,7 +53,7 @@ const CategorySelect = ({
             >
                 {label}
             </label>
-            <p className="px13 mb-4 font-normal text-grey md:text-sm">
+            <p className="px13 mb-4 font-normal text-gray-600 md:text-sm">
                 {description}
             </p>
             <div

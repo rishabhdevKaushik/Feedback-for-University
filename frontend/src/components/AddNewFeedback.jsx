@@ -81,7 +81,7 @@ const AddNewFeedback = () => {
                 className="mb-[2.125rem] flex items-center gap-1 md:mb-10"
             >
                 <img className="h-2 w-1" src={arrowleft} alt="arrowback" />
-                <p className="px13 font-bold text-grey hover:text-black md:text-sm">
+                <p className="px13 font-bold text-gray-600 hover:text-black md:text-sm">
                     Go Back
                 </p>
             </Link>
@@ -99,7 +99,7 @@ const AddNewFeedback = () => {
                     >
                         Feedback Title
                     </label>
-                    <p className="px13 mb-4 font-normal text-grey md:text-sm">
+                    <p className="px13 mb-4 font-normal text-gray-600 md:text-sm">
                         Add a short, descriptive headline
                     </p>
                     <input
@@ -148,7 +148,7 @@ const AddNewFeedback = () => {
                     >
                         Feedback Detail
                     </label>
-                    <p className="px13 mb-4 font-normal text-grey md:text-sm">
+                    <p className="px13 mb-4 font-normal text-gray-600 md:text-sm">
                         Include any specific comments on what should be
                         improved, added, etc.
                     </p>

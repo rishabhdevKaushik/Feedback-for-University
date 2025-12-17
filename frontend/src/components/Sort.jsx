@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sort } from '../features/state/stateSlice';
 import { Link } from 'react-router-dom';
 import SortSelect from './SortSelect';
 import lightbulb from '../assets/lightbulb.png';
 import { getAllPosts } from '../features/social/socialSlice';
+import { isUserAdmin } from '../utils/adminUtils';
 
 function Sort() {
   const [sortBy, setSortBy] = useState('Most Upvotes');
+  const [isAdmin, setIsAdmin] = useState(false);
   const dispatch = useDispatch();
   const products = useSelector(state => state.social.posts);
+
+  useEffect(() => {
+    setIsAdmin(isUserAdmin());
+  }, []);
 
   /* const productRequests = useSelector(state => state.state.data.productRequests);
 
@@ -38,7 +44,7 @@ function Sort() {
         <div className='absolute hidden md:relative md:flex md:items-center md:gap-2 xl:mr-10'>
           <img src={lightbulb} alt='lightbulb' />
           <p className='text-lg font-bold tracking-[-0.25px] text-white md:mr-10 xl:whitespace-nowrap'>
-            {products ? products.length : null} Suggestions
+            {products ? products.length : null} Suggestion(s) / Feedback(s)
           </p>
         </div>
         <div className='flex'>
@@ -48,12 +54,22 @@ function Sort() {
           <SortSelect value={sortBy} onChange={setSortBy} options={options} />
         </div>
       </div>
-      <Link
-        to='/addfeedback'
-        className='s:px13 flex h-10 items-center justify-center whitespace-nowrap rounded-xl bg-purple font-bold hover:bg-hover-purple xs:w-[6.449rem] xs:text-[0.625rem] s:w-[8.375rem] md:h-[2.75rem] md:w-[9.875rem] md:text-sm'
-      >
-        + Add Feedback
-      </Link>
+      <div className='flex gap-2'>
+        <Link
+          to='/addfeedback'
+          className='s:px13 flex h-10 items-center justify-center whitespace-nowrap rounded-xl bg-purple font-bold hover:bg-hover-purple xs:w-[6.449rem] xs:text-[0.625rem] s:w-[8.375rem] md:h-[2.75rem] md:w-[9.875rem] md:text-sm'
+        >
+          + Add Feedback
+        </Link>
+        {/* {isAdmin && (
+          <Link
+            to='/admin/posts'
+            className='s:px13 flex h-10 items-center justify-center whitespace-nowrap rounded-xl bg-red-500 font-bold hover:bg-red-600 text-white xs:w-[6.449rem] xs:text-[0.625rem] s:w-[8.375rem] md:h-[2.75rem] md:w-[9.875rem] md:text-sm'
+          >
+            Admin Panel
+          </Link>
+        )} */}
+      </div>
     </div>
   );
 }

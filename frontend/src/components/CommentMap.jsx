@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllComments,
   getAllUsers,
   replyUser,
+  deleteComment,
 } from '../features/social/socialSlice';
 import ReplyMap from './ReplyMap';
 import EditComment from './EditComment';
+import { isUserAdmin } from '../utils/adminUtils';
 
 function CommentMap({ id }) {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ function CommentMap({ id }) {
 
   const postComments = comments.filter(comment => comment.post === id);
   const username = localStorage.getItem('username');
+  const isAdmin = isUserAdmin();
 
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyContent, setReplyContent] = useState('');
@@ -66,6 +69,14 @@ function CommentMap({ id }) {
     }
   };
 
+  const handleDeleteComment = (commentId) => {
+    if (window.confirm('Are you sure you want to delete this comment?')) {
+      dispatch(deleteComment({ id: commentId })).then(() => {
+        dispatch(getAllComments());
+      });
+    }
+  };
+
   return (
     <div>
       {postComments.length === 0 && <p>No comments found.</p>}
@@ -88,18 +99,26 @@ function CommentMap({ id }) {
                 /> */}
                 <div className=''>
                   <p className='px13 font-bold capitalize tracking-[-0.18px] text-blue'>{`${user.firstname} ${user.lastname}`}</p>
-                  <p className='px13 font-normal capitalize text-grey'>
+                  <p className='px13 font-normal capitalize text-gray-600'>
                     @{user.username}
                   </p>
                 </div>
               </div>
               <div className='flex gap-2'>
-                {(user.username === username || username === 'admin') && (
+                {(user.username === username || isAdmin) && (
                   <button
                     onClick={() => handleToggleEdit(comment)}
                     className='px13 font-semibold text-orange-500 hover:underline'
                   >
                     {editingComment === comment._id ? 'Cancel Edit' : 'Edit'}
+                  </button>
+                )}
+                {isAdmin && (
+                  <button
+                    onClick={() => handleDeleteComment(comment._id)}
+                    className='px13 font-semibold text-red-500 hover:underline'
+                  >
+                    Delete
                   </button>
                 )}
                 <button
@@ -119,7 +138,7 @@ function CommentMap({ id }) {
               </div>
             ) : (
               <div className='pt-4'>
-                <p className='px13 leading-[auto] text-grey md:ml-14'>
+                <p className='px13 leading-[auto] text-gray-700 md:ml-14'>
                   {comment.content}
                 </p>
               </div>

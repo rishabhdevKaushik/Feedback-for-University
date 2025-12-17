@@ -50,11 +50,21 @@ export const register = createAsyncThunk(
 const userSlice = createSlice({
     name: "user",
     initialState: {
-        activeUser: null,
+        activeUser: localStorage.getItem('username') || null,
         status: "idle",
         error: null,
     },
-    reducers: {},
+    reducers: {
+        setActiveUser: (state, action) => {
+            state.activeUser = action.payload;
+        },
+        clearUser: (state) => {
+            state.activeUser = null;
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('username');
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addMatcher(
@@ -84,4 +94,5 @@ const userSlice = createSlice({
     },
 });
 
+export const { setActiveUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

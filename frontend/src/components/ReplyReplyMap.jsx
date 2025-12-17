@@ -67,7 +67,7 @@ function ReplyReplyMap({ replies }) {
                 /> */}
                 <div className=''>
                   <p className='px13 font-bold capitalize tracking-[-0.18px] text-blue'>{`${user.firstname} ${user.lastname}`}</p>
-                  <p className='px13 font-normal capitalize text-grey'>
+                  <p className='px13 font-normal capitalize text-gray-600'>
                     @{user.username}
                   </p>
                 </div>
@@ -80,7 +80,7 @@ function ReplyReplyMap({ replies }) {
               </button>
             </div>
             <div className='mt-2'>
-              <p className='px13 leading-[auto] text-grey md:ml-14'>
+              <p className='px13 leading-[auto] text-gray-700 md:ml-14'>
                 <span className='px13 font-bold leading-[auto] text-purple'>
                   @{reply.replyTo.user}
                 </span>{' '}

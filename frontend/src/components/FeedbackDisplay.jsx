@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import arrowup from '../assets/arrowup.png';
@@ -9,7 +9,9 @@ import {
   getAllPosts,
   upvoteToggle,
   getAllCategories,
+  deletePost,
 } from '../features/social/socialSlice';
+import { isUserAdmin } from '../utils/adminUtils';
 
 function FeedbackDisplay() {
   const posts = useSelector(state => state.social.posts);
@@ -21,6 +23,7 @@ function FeedbackDisplay() {
 
   const user = localStorage.getItem('user');
   const username = localStorage.getItem('username');
+  const isAdmin = isUserAdmin();
 
   const [filteredAndSortedRequests, setFilteredAndSortedRequests] = useState(
     []
@@ -111,6 +114,15 @@ function FeedbackDisplay() {
     handleUpvote(value);
   };
 
+  const handleDelete = (e, postId) => {
+    e.stopPropagation();
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      dispatch(deletePost({ id: postId })).then(() => {
+        dispatch(getAllPosts());
+      });
+    }
+  };
+
   return (
     <main className='w-screen" min-h-screen overflow-hidden bg-grey-white py-8 pb-28 md:pt-6 xl:pt-6'>
       {filteredAndSortedRequests.map(value => (
@@ -126,17 +138,29 @@ function FeedbackDisplay() {
             <p>{value.comments.length}</p>
           </button>
           <div className='md:flex md:flex-row-reverse md:gap-10'>
-            <div>
-              <p className='px13 mb-2 font-bold tracking-[-0.18px] text-blue md:text-lg'>
-                {value.title}
-              </p>
-              <p className='px13 mb-2 font-normal text-grey md:text-base'>
-                {value.description}
-              </p>
-              <div className='mb-4 flex h-[1.875rem] w-[6.938rem] items-center justify-center rounded-xl bg-grey-white text-sm'>
-                <p className='px13 font-semibold text-strong-blue'>
-                  {getCategoryNameById(value.category)}
-                </p>
+            <div className='flex-1'>
+              <div className='flex justify-between items-start'>
+                <div className='flex-1'>
+                  <p className='px13 mb-2 font-bold tracking-[-0.18px] text-blue md:text-lg'>
+                    {value.title}
+                  </p>
+                  <p className='px13 mb-2 font-normal text-gray-700 md:text-base'>
+                    {value.description}
+                  </p>
+                  <div className='mb-4 flex h-[1.875rem] w-[6.938rem] items-center justify-center rounded-xl bg-grey-white text-sm'>
+                    <p className='px13 font-semibold text-strong-blue'>
+                      {getCategoryNameById(value.category)}
+                    </p>
+                  </div>
+                </div>
+                {isAdmin && (
+                  <button
+                    onClick={(e) => handleDelete(e, value._id)}
+                    className='ml-4 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors'
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
             <div className='flex justify-between'>

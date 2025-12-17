@@ -74,6 +74,42 @@ export const getAllCategories = createAsyncThunk(
     }
 );
 
+export const addCategory = createAsyncThunk(
+    "category/add",
+    async ({ name }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.post("/category/add", { name });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
+export const updateCategory = createAsyncThunk(
+    "category/update",
+    async ({ id, name }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.put(`/category/update/${id}`, { name });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
+export const deleteCategory = createAsyncThunk(
+    "category/delete",
+    async ({ id }, { rejectWithValue }) => {
+        try {
+            const response = await apiClient.delete(`/category/delete/${id}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(handleAsyncError(error));
+        }
+    }
+);
+
 export const upvoteToggle = createAsyncThunk(
     "post/upvote",
     async ({ toggle, id, username }, { rejectWithValue }) => {
@@ -303,6 +339,15 @@ const socialSlice = createSlice({
                         action.type === getAllCategories.fulfilled.type
                     ) {
                         state.categories = action.payload.categories;
+                    } else if (action.type === addCategory.fulfilled.type) {
+                        state.categories.push(action.payload.category);
+                    } else if (action.type === updateCategory.fulfilled.type) {
+                        const index = state.categories.findIndex(cat => cat._id === action.payload.category._id);
+                        if (index !== -1) {
+                            state.categories[index] = action.payload.category;
+                        }
+                    } else if (action.type === deleteCategory.fulfilled.type) {
+                        state.categories = state.categories.filter(cat => cat._id !== action.payload.category._id);
                     } else if (action.type === getAllComments.fulfilled.type) {
                         state.comments = action.payload.comments;
                     } else if (action.type === getAllReplies.fulfilled.type) {

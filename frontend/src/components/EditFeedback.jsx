@@ -96,13 +96,13 @@ const EditFeedback = () => {
           className='mb-[2.125rem] flex items-center gap-2'
         >
           <img className='h-2 w-1' src={arrowleft} alt='arrowback' />
-          <p className='px13 font-bold text-grey hover:text-black md:text-sm'>
+          <p className='px13 font-bold text-gray-600 hover:text-black md:text-sm'>
             Go Back
           </p>
         </Link>
         <div className='flex flex-col rounded-xl bg-white p-6 pt-12 md:px-12 md:pb-10 md:pt-14'>
           <h1 className='mb-6 text-lg font-bold tracking-[-0.25px] text-blue md:text-2xl md:tracking-[-0.33px]'>
-            Editing '{formData.title}'
+            Editing 
           </h1>
           <div className='mb-6'>
             <label
@@ -111,7 +111,7 @@ const EditFeedback = () => {
             >
               Feedback Title
             </label>
-            <p className='px13 mb-4 font-normal text-grey md:text-sm'>
+            <p className='px13 mb-4 font-normal text-gray-600 md:text-sm'>
               Add a short, descriptive headline
             </p>
             <input
@@ -144,7 +144,7 @@ const EditFeedback = () => {
             >
               Feedback Detail
             </label>
-            <p className='px13 mb-4 font-normal text-grey md:text-sm'>
+            <p className='px13 mb-4 font-normal text-gray-600 md:text-sm'>
               Include any specific comments on what should be improved, added,
               etc.
             </p>

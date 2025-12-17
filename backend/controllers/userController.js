@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 exports.getAllUsers = async (req, res) => {
     try {
-        const users = await User.find().select("-email -password");
+        const users = await User.find().select("-password");
 
         res.status(200).json({ message: "Users fetched successfully", users });
     } catch (error) {

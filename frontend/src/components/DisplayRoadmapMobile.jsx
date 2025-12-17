@@ -68,17 +68,17 @@ function DisplayRoadmapMobile({ selectedRoadmap }) {
             : `Live (${roadmap.length})`}
       </h1>
       {selectedRoadmap === 'planned' && (
-        <p className='px13 mb-6 font-normal text-grey'>
+        <p className='px13 mb-6 font-normal text-gray-600'>
           Ideas prioritized for research
         </p>
       )}
       {selectedRoadmap === 'in-progress' && (
-        <p className='px13 mb-6 font-normal text-grey'>
+        <p className='px13 mb-6 font-normal text-gray-600'>
           Currently being developed
         </p>
       )}
       {selectedRoadmap === 'live' && (
-        <p className='px13 mb-6 font-normal text-grey'>Released features</p>
+        <p className='px13 mb-6 font-normal text-gray-600'>Released features</p>
       )}
       {roadmap.map(feedback => (
         <div
@@ -106,7 +106,7 @@ function DisplayRoadmapMobile({ selectedRoadmap }) {
                     : 'blue oval'
               }
             />
-            <p className='px13 font-normal text-grey'>
+            <p className='px13 font-normal text-gray-600'>
               {selectedRoadmap === 'planned'
                 ? 'Planned'
                 : selectedRoadmap === 'in-progress'
@@ -117,7 +117,7 @@ function DisplayRoadmapMobile({ selectedRoadmap }) {
           <h2 className='px13 mb-2 font-bold tracking-[-0.18px] text-blue'>
             {feedback.title}
           </h2>
-          <p className='px13 mb-2 font-normal text-grey'>
+          <p className='px13 mb-2 font-normal text-gray-700'>
             {feedback.description}
           </p>
           <div className='px13 mb-4 flex h-[1.875rem] w-[6.938rem] items-center justify-center rounded-[0.625rem] bg-grey-white'>

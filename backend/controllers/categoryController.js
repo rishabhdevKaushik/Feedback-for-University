@@ -40,7 +40,7 @@ exports.getCategoryByName = async (req, res) => {
 
     const category = await Category.findOne({ name: name });
     if (!category) {
-      res.status(404).json({ message: 'Category not found' });
+      return res.status(404).json({ message: 'Category not found' });
     }
 
     res
@@ -87,7 +87,7 @@ exports.updateCategoryById = async (req, res) => {
 
     const checkName = await Category.findOne({ name: name });
     if (checkName) {
-      res.status(400).json({ message: 'Category name already exsist' });
+      return res.status(400).json({ message: 'Category name already exists' });
     }
 
     if (name) category.name = name;
