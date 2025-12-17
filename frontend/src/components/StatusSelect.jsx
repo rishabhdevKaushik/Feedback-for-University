@@ -5,7 +5,7 @@ import arrowIcon from '../assets/arrowdownblue.svg';
 const statusOptions = [
   { value: 'planned', label: 'Planned' },
   { value: 'in-progress', label: 'In-Progress' },
-  { value: 'live', label: 'Live' },
+  { value: 'completed', label: 'Completed' },
 ];
 
 const StatusSelect = ({

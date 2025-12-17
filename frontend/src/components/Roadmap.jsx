@@ -1,4 +1,3 @@
-import React from 'react';
 import orange from '../assets/orange.png';
 import purple from '../assets/purple.png';
 import blue from '../assets/blue.png';
@@ -28,8 +27,8 @@ function Roadmap() {
     return acc;
   }, 0);
 
-  const liveCount = status.reduce((acc, currentValue) => {
-    if (currentValue.status === 'Live' || currentValue.status === 'live') {
+  const completedCount = status.reduce((acc, currentValue) => {
+    if (currentValue.status === 'Completed' || currentValue.status === 'completed') {
       return acc + 1;
     }
     return acc;
@@ -41,12 +40,12 @@ function Roadmap() {
         <h1 className='text-lg font-bold tracking-[-0.25px] text-blue'>
           Roadmap
         </h1>
-        {/* <Link
+        <Link
           to='/roadmap'
           className='px13 font-semibold text-strong-blue underline hover:text-hover-blue'
         >
           View
-        </Link> */}
+        </Link>
       </div>
       <div>
         <div className='flex justify-between'>
@@ -66,9 +65,9 @@ function Roadmap() {
         <div className='flex justify-between'>
           <div className='mb-2 flex items-center gap-2'>
             <img src={blue} alt='Blue Oval' />
-            <p className='text-base font-normal text-gray-600'>Live</p>
+            <p className='text-base font-normal text-gray-600'>Completed</p>
           </div>
-          <p className='text-base font-bold text-gray-700'>{liveCount}</p>
+          <p className='text-base font-bold text-gray-700'>{completedCount}</p>
         </div>
       </div>
     </div>

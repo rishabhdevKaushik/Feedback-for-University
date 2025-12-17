@@ -208,9 +208,9 @@ function DesktopRoadmap() {
 
         <div className='w-1/3'>
           <h2 className='mb-1 text-sm font-bold tracking-[-0.19px] text-blue'>
-            Live (
+            Completed (
             {
-              posts.filter(request => request.status.toLowerCase() === 'live')
+              posts.filter(request => request.status.toLowerCase() === 'completed')
                 .length
             }
             )
@@ -219,7 +219,7 @@ function DesktopRoadmap() {
             Ideas currently implemented
           </p>
           {posts
-            .filter(request => request.status.toLowerCase() === 'live')
+            .filter(request => request.status.toLowerCase() === 'completed')
             .map(feedback => (
               <Link to={`/feedback/${feedback._id}`} key={uuidv4()}>
                 <div
@@ -227,7 +227,7 @@ function DesktopRoadmap() {
                 >
                   <div className='mb-4 flex items-center gap-2'>
                     <img className='h-2 w-2' src={blue} alt='blue oval' />
-                    <p>Live</p>
+                    <p>Completed</p>
                   </div>
                   <h2 className='px13 mb-2 cursor-pointer font-bold tracking-[-0.18px] text-blue hover:text-strong-blue'>
                     {feedback.title}

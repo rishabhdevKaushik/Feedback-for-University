@@ -64,7 +64,7 @@ const EditFeedback = () => {
     setErrorTitle(false);
     setErrorDetail(false);
     dispatch(editPost({ formData, id }));
-    // navigate('/feedback-app-tailwind-vite/');
+    navigate(-1); // Go back to previous screen
   };
 
   const handleDelete = () => {
@@ -122,7 +122,7 @@ const EditFeedback = () => {
               placeholder='Add a title'
             />
             {errorTitle && (
-              <p className='mt-1 text-sm text-red md:text-sm'>Can’t be empty</p>
+              <p className='mt-1 text-sm text-red md:text-sm'>Can't be empty</p>
             )}
           </div>
           <CategorySelect
@@ -154,7 +154,7 @@ const EditFeedback = () => {
               className={`input h-32 w-full ${errorDetail ? 'outline-red' : 'outline-transparent'}`}
               placeholder='Add details'
             ></textarea>
-            {errorDetail && <p className='text-sm text-red'>Can’t be empty</p>}
+            {errorDetail && <p className='text-sm text-red'>Can't be empty</p>}
           </div>
           <div className='flex flex-col md:flex-row-reverse md:items-center md:justify-between md:gap-4'>
             <div className='flex flex-col md:flex-row-reverse md:gap-4'>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import arrowleft from '../assets/arrowleft.png';
 import { getAllPosts, deletePost, getAllCategories } from '../features/social/socialSlice';
 import { isUserAdmin } from '../utils/adminUtils';
 
@@ -42,16 +43,23 @@ function AdminManagePosts() {
   }
 
   return (
-    <div className='min-h-screen bg-grey-white p-6'>
+    <div className='min-w-screen absolute left-0 right-0 top-0 
+                    min-h-full bg-grey-white p-6 pb-24 xs:px-3 s:px-6 md:px-10 md:pb-32 md:pt-14
+                    xl:px-80 xl:pb-32 xl:pt-20'>
       <div className='max-w-6xl mx-auto'>
-        <div className='flex justify-between items-center mb-6'>
-          <h1 className='text-2xl font-bold text-blue'>Manage Posts</h1>
+        <div className='relative flex items-center mb-[2.125rem]'>
           <button
             onClick={() => navigate('/home')}
-            className='px-4 py-2 bg-strong-blue text-white rounded hover:bg-hover-blue'
+            className='flex items-center gap-2 bg-transparent border-none cursor-pointer z-10'
           >
-            Back to Home
+            <img className='h-2 w-1' src={arrowleft} alt='arrowback' />
+            <p className='px13 font-bold text-gray-600 hover:text-black md:text-sm'>
+              Go Back
+            </p>
           </button>
+          <div className='absolute left-1/2 transform -translate-x-1/2'>
+            <h1 className='text-2xl font-bold text-blue'>Manage Posts</h1>
+          </div>
         </div>
         
         <div className='bg-white rounded-xl p-6'>

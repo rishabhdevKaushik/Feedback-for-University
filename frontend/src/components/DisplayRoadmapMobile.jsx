@@ -65,7 +65,7 @@ function DisplayRoadmapMobile({ selectedRoadmap }) {
           ? `Planned (${roadmap.length})`
           : selectedRoadmap === 'in-progress'
             ? `In Progress (${roadmap.length})`
-            : `Live (${roadmap.length})`}
+            : `Completed (${roadmap.length})`}
       </h1>
       {selectedRoadmap === 'planned' && (
         <p className='px13 mb-6 font-normal text-gray-600'>
@@ -77,7 +77,7 @@ function DisplayRoadmapMobile({ selectedRoadmap }) {
           Currently being developed
         </p>
       )}
-      {selectedRoadmap === 'live' && (
+      {selectedRoadmap === 'completed' && (
         <p className='px13 mb-6 font-normal text-gray-600'>Released features</p>
       )}
       {roadmap.map(feedback => (
@@ -111,7 +111,7 @@ function DisplayRoadmapMobile({ selectedRoadmap }) {
                 ? 'Planned'
                 : selectedRoadmap === 'in-progress'
                   ? 'In Progress'
-                  : 'Live'}
+                  : 'Completed'}
             </p>
           </div>
           <h2 className='px13 mb-2 font-bold tracking-[-0.18px] text-blue'>

@@ -18,8 +18,8 @@ function LinkButton({ selectedRoadmap, setSelectedRoadmap }) {
     return acc;
   }, 0);
 
-  const liveCount = state.reduce((acc, currentValue) => {
-    if (currentValue.status.toLowerCase() === 'live') {
+  const completedCount = state.reduce((acc, currentValue) => {
+    if (currentValue.status.toLowerCase() === 'completed') {
       return acc + 1;
     }
     return acc;
@@ -48,14 +48,14 @@ function LinkButton({ selectedRoadmap, setSelectedRoadmap }) {
         In-Progress ({inProgressCount})
       </button>
       <button
-        onClick={() => setSelectedRoadmap('live')}
+        onClick={() => setSelectedRoadmap('completed')}
         className={
-          selectedRoadmap === 'live'
+          selectedRoadmap === 'completed'
             ? 'px13 w-1/3 border-b-[4.5px] border-light-blue py-4 font-bold tracking-[-0.18px] text-blue'
             : 'px13 w-1/3 border-b border-grey/25 py-4 font-bold tracking-[-0.18px] text-blue/40'
         }
       >
-        Live ({liveCount})
+        Completed ({completedCount})
       </button>
     </div>
   );
