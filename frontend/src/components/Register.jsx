@@ -63,7 +63,7 @@ const Register = () => {
 
 		console.log(response);
 		if (response?.payload?.message === "User created successfully") {
-			navigate("/login");
+			navigate("/");
 		} else {
 			console.log(response);
 		}

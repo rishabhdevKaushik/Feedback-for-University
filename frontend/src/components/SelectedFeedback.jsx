@@ -63,7 +63,7 @@ function SelectedFeedback() {
           </p>
         </button>
         <Link
-          // to={'/editfeedback/' + id}
+          to={'/editfeedback/' + id}
           className='px13 flex h-10 w-[7.438rem] items-center justify-center rounded-xl bg-strong-blue font-bold text-white hover:bg-hover-blue md:h-[2.75rem] md:w-[8.875rem] md:text-sm'
         >
           Edit Feedback
