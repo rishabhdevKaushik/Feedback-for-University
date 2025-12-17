@@ -79,10 +79,17 @@ exports.updatePostByID = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, status, category } = req.body;
+    console.log("USER : ", req);
+
 
     const post = await Post.findById(id);
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Check if user is admin or post creator
+    if (req.user.username !== 'admin' && post.user.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Access denied. You can only update your own posts.' });
     }
 
     if (category && category.trim() !== '') {
@@ -125,11 +132,20 @@ exports.updatePostByID = async (req, res) => {
 exports.deletePostById = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("USER : ", req?.user);
 
-    const post = await Post.findByIdAndDelete(id);
+    const post = await Post.findById(id);
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
+
+    // Check if user is admin or post creator
+    if (req.user.username !== 'admin' && post.user.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Access denied. You can only delete your own posts.' });
+    }
+
+    // Now delete the post
+    await Post.findByIdAndDelete(id);
 
     await User.updateOne({ _id: post.user }, { $pull: { posts: post._id } });
 
